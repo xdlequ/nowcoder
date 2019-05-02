@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.dao.UserDao">
+    <sql id="table">user</sql>
+    <sql id="insertField">name,password,salt,head_url</sql>
+    <sql id="selectField">id,name,password,salt,head_url</sql>
+
+    <select id="selectById" resultType="com.project.entity.User">
+        SELECT <include refid="selectField"/>
+        FROM <include refid="table"/>
+        WHERE id=#{id}
+    </select>
+    <select id="selectByName" resultType="com.project.entity.User">
+        SELECT <include refid="selectField"/>
+        FROM <include refid="table"/>
+        where name=#{name}
+    </select>
+    <insert id="addUser">
+        INSERT into <include refid="table"/>
+        (<include refid="insertField"/>)
+        VALUES (#{name},#{password},#{salt},#{headUrl})
+    </insert>
+
+    <update id="updatePassword">
+        UPDATE <include refid="table"/>
+        SET password=#{password} where id=#{id}
+    </update>
+    <delete id="deleteById">
+        DELETE FROM <include refid="table"/>
+        where id=#{id}
+    </delete>
+</mapper>
