@@ -28,11 +28,11 @@ public class LoginController {
 
 
     @RequestMapping(path = {"/reg/"},method = {RequestMethod.POST})
-    public String register(Model model, @RequestParam("userName")String userName, @RequestParam("password")String password,
+    public String register(Model model, @RequestParam("username")String username, @RequestParam("password")String password,
                            @RequestParam(value ="next",defaultValue = "false")String next, @RequestParam(value = "remember",defaultValue = "false")boolean rememberme,
                            HttpServletResponse response){
         try {
-            Map<String,Object>map=userService.register(userName,password);
+            Map<String,Object>map=userService.register(username,password);
             if (map.containsKey("ticket")){
                 Cookie cookie=new Cookie("ticket",map.get("ticket").toString());
                 //.可在同一应用服务器内共享方法：设置cookie.setPath("/");
@@ -58,11 +58,11 @@ public class LoginController {
         //return "";
     }
     @RequestMapping(path = {"/login/"},method = {RequestMethod.POST})
-    public String login(Model model, @RequestParam("userName")String userName, @RequestParam("password")String password,
+    public String login(Model model, @RequestParam("username")String username, @RequestParam("password")String password,
                            @RequestParam(value ="next",defaultValue = "false")String next, @RequestParam(value = "remember",defaultValue = "false")boolean rememberme,
                            HttpServletResponse response){
         try {
-            Map<String,Object>map=userService.login(userName,password);
+            Map<String,Object>map=userService.login(username,password);
             if (!map.containsKey("ticket")){
                 model.addAttribute("msg",map.get("msg"));
                 return "login";

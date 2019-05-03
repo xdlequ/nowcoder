@@ -16,6 +16,8 @@
         FROM <include refid="table"/>
         where name=#{name}
     </select>
+
+
     <insert id="addUser">
         INSERT into <include refid="table"/>
         (<include refid="insertField"/>)
