@@ -28,7 +28,7 @@ public class PassportInterceptor implements HandlerInterceptor {
     @Autowired
     private HostHolder hostHolder;
 
-
+    //请求到达拦截器之前的操作
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String ticket=null;
@@ -50,7 +50,7 @@ public class PassportInterceptor implements HandlerInterceptor {
         }
         return true;
     }
-
+    //返回view之前处理
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         if (modelAndView!=null&&hostHolder.getUser()!=null){

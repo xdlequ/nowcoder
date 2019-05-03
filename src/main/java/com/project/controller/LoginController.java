@@ -29,7 +29,7 @@ public class LoginController {
 
     @RequestMapping(path = {"/reg/"},method = {RequestMethod.POST})
     public String register(Model model, @RequestParam("username")String username, @RequestParam("password")String password,
-                           @RequestParam(value ="next",defaultValue = "false")String next, @RequestParam(value = "remember",defaultValue = "false")boolean rememberme,
+                           @RequestParam(value ="next",required = false)String next, @RequestParam(value = "remember",defaultValue = "false")boolean rememberme,
                            HttpServletResponse response){
         try {
             Map<String,Object>map=userService.register(username,password);
@@ -59,7 +59,7 @@ public class LoginController {
     }
     @RequestMapping(path = {"/login/"},method = {RequestMethod.POST})
     public String login(Model model, @RequestParam("username")String username, @RequestParam("password")String password,
-                           @RequestParam(value ="next",defaultValue = "false")String next, @RequestParam(value = "remember",defaultValue = "false")boolean rememberme,
+                           @RequestParam(value ="next",required = false)String next, @RequestParam(value = "remember",defaultValue = "false")boolean rememberme,
                            HttpServletResponse response){
         try {
             Map<String,Object>map=userService.login(username,password);
