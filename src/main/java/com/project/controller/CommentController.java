@@ -1,5 +1,8 @@
 package com.project.controller;
 
+import com.project.async.EventModel;
+import com.project.async.EventProducer;
+import com.project.async.EventType;
 import com.project.entity.Comment;
 import com.project.entity.EntityType;
 import com.project.entity.HostHolder;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.awt.*;
 import java.util.Date;
 
 /**
@@ -31,6 +35,9 @@ public class CommentController {
 
     @Autowired
     QuestionService questionService;
+
+    @Autowired
+    EventProducer eventProducer;
 
 
 
@@ -54,8 +61,8 @@ public class CommentController {
             int count=commentService.getCommentCount(comment.getEntityId(),comment.getEntityType());
             //需要在questionService中更新
             questionService.updateCommentCount(comment.getEntityId(),count);
-//            eventProducer.fireEvent(new EventModel(EventType.COMMENT).setActorId(comment.getUserId())
-//                    .setEntityId(questionId));
+            eventProducer.fireEvent(new EventModel(EventType.COMMENT).setActorId(comment.getUserId())
+                    .setEntityId(questionId));
         }catch (Exception e){
             log.error("增加评论失败",e.getMessage());
         }

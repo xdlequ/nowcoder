@@ -1,5 +1,8 @@
 package com.project.controller;
 
+import com.project.async.EventModel;
+import com.project.async.EventProducer;
+import com.project.async.EventType;
 import com.project.dao.LoginTicketDao;
 import com.project.service.UserService;
 import org.apache.commons.lang3.StringUtils;
@@ -25,6 +28,8 @@ public class LoginController {
     private static final Logger log= LoggerFactory.getLogger(LoginController.class);
     @Autowired
     UserService userService;
+    @Autowired
+    EventProducer eventProducer;
 
 
     @RequestMapping(path = {"/reg/"},method = {RequestMethod.POST})
@@ -77,9 +82,9 @@ public class LoginController {
                 }
                 response.addCookie(cookie);
                 //此处需要添加事件处理机制
-//                eventProducer.fireEvent(new EventModel(EventType.LOGIN)
-//                        .setExt("username", username).setExt("email", "zjuyxy@qq.com")
-//                        .setActorId((int)map.get("userId")));
+                eventProducer.fireEvent(new EventModel(EventType.LOGIN)
+                        .setExt("username", username).setExt("email", "ql085211ok@163.com")
+                        .setActorId((int)map.get("userId")));
 
                 if (StringUtils.isNotBlank(next)){
                     return "redirect"+next;
