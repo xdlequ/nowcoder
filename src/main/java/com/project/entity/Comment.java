@@ -15,8 +15,8 @@ import java.util.Date;
 public class Comment {
     private int id;
     private int userId;
-    private int entityId;
-    private int entityType;
+    private int entityId;//评论归属问题Id
+    private int entityType;//归属的类型
     private String content;
 
     private Date createDate;
